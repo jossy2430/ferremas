@@ -33,4 +33,8 @@ public class ProductoService {
         productoDbFeignClient.delete(idProducto);
     }
 
+    public ProductoDTO actualizarStock(Integer idProducto, Integer nuevoStock) {
+        return productoDbFeignClient.actualizarStock(idProducto, nuevoStock);
+    }
+
 }

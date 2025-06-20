@@ -10,7 +10,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import com.example.ms_customer_bff.modelDto.CustomerDTO;
+import com.example.ms_customer_bff.modelDTO.CustomerDTO;
+
 
 @FeignClient(name = "ms-customer-bs", url = "http://localhost:8181/")
 public interface CustomerDbFeignClient {
@@ -28,4 +29,7 @@ public interface CustomerDbFeignClient {
 
     @DeleteMapping("api/customers/{idCliente}")
     public void delete(@PathVariable("idCliente") Integer idCliente);
+
+    @GetMapping("api/customers/correo/{correo}")
+    public CustomerDTO findByCorreo(@PathVariable("correo") String correo);
 }

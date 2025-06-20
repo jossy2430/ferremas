@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ferremas - Ferretería Online</title>
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+  <header>
+    <nav>
+      <div class="logo">Ferremas</div>
+    <div class="search-bar">
+      <input type="text" id="searchInput" placeholder="Buscar productos...">
+      <button id="searchButton">Buscar</button>
+    </div>
+    <div class="nav-links">
+      <div class="dropdown">
+        <button class="dropdown-button">Categorías</button>
+        <div class="dropdown-content" id="categoryDropdown"></div>
+      </div>
+      <a href="login.html" id="loginButton">Iniciar Sesión</a>
+      <a href="register.html" id="registerButton">Registrarse</a>
+    </div>
+    </nav>
+  </header>
+
+  <main>
+    <section id="categories">
+  <h2>Categorías</h2>
+  <div id="categoryList"></div>
+</section>
+
+    <section id="products">
+      <h2>Productos</h2>
+      <div id="productList"></div>
+    </section>
+  </main>
+  <footer>
+    <p>Ferremas - Tu ferretería de confianza</p>
+    <p>Direcciones de sucursales:</p>
+    <ul>
+      <li>Sucursal 1: </li>
+      <li>Sucursal 2: </li>
+    </ul>
+  </footer>
+
+  <script src="/js/paginaPrincipal.js"></script>
+</body>
+</html>

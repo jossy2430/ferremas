@@ -15,4 +15,7 @@ public interface CarritoCompraRepository extends JpaRepository<CarritoCompra, In
     @Query("SELECT c FROM CarritoCompra c WHERE c.idCarrito = :idCarrito")
     List<CarritoCompra> buscarPorId(@Param("idCarrito")Integer idCarrito);
 
+    // NUEVO: Buscar carrito activo por cliente
+    @Query("SELECT c FROM CarritoCompra c WHERE c.idCliente = :idCliente AND c.activo = true")
+    CarritoCompra findByIdClienteAndActivoTrue(@Param("idCliente") Integer idCliente);
 }

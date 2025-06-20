@@ -1,4 +1,4 @@
-package com.example.ms_customer_bff.modelDto;
+package com.example.ms_customer_bff.modelDTO;
 
 import java.time.LocalDateTime;
 
@@ -17,8 +17,9 @@ public class CustomerDTO {
     private String correo;
     private String password;
     private LocalDateTime fechaResgistro;
-    private Boolean recibirNotificaciones;
+    private Boolean recibirNotificacion;
     private String direccion;
     private Integer telefono;
 
 }
+

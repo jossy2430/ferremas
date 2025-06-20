@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import com.example.ms_producto_categoria_bs.modelDto.CategoriaDTO;
 
-@FeignClient(name = "ms-categoria-db", url = "http://localhost:8080/")
+@FeignClient(name = "ms-categoria-db", url = "http://localhost:8383/")
 public interface CategoriaDbFeignClient {
 
     @GetMapping("api/categorias")

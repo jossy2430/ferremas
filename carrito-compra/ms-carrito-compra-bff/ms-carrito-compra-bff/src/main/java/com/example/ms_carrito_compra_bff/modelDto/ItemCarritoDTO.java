@@ -1,5 +1,6 @@
 package com.example.ms_carrito_compra_bff.modelDto;
 
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,7 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ItemCarritoDTO {
     private Integer idItem;
-    private CarritoCompraDTO carrito;
+    private Integer idCarrito;
     private Integer idProducto;
     private Integer cantidad;
     private Double precioUnitario;

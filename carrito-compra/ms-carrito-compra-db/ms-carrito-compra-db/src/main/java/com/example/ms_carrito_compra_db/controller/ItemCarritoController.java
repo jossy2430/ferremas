@@ -2,7 +2,6 @@ package com.example.ms_carrito_compra_db.controller;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -20,8 +19,11 @@ import com.example.ms_carrito_compra_db.service.ItemCarritoService;
 @RestController
 @RequestMapping("/api/itemcarrito")
 public class ItemCarritoController {
-    @Autowired
-    private ItemCarritoService itemCarritoService;
+    private final ItemCarritoService itemCarritoService;
+
+    public ItemCarritoController(ItemCarritoService itemCarritoService) {
+        this.itemCarritoService = itemCarritoService;
+    }
 
     @GetMapping
     public ResponseEntity<List<ItemCarrito>> listar(){
@@ -66,7 +68,7 @@ public class ItemCarritoController {
     }
 
     @DeleteMapping("/{idItem}")
-    public ResponseEntity<?> eliminar(@PathVariable Integer idItem){
+    public ResponseEntity<Void> eliminar(@PathVariable Integer idItem){
         try {
             itemCarritoService.delete(idItem);
             return ResponseEntity.noContent().build();

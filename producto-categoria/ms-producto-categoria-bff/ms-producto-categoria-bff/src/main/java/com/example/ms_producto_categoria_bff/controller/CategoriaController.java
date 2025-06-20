@@ -17,7 +17,6 @@ import com.example.ms_producto_categoria_bff.modelDto.CategoriaDTO;
 import com.example.ms_producto_categoria_bff.service.CategoriaService;
 
 @RestController
-@CrossOrigin("*")
 @RequestMapping("/api/categorias")
 public class CategoriaController {
     @Autowired

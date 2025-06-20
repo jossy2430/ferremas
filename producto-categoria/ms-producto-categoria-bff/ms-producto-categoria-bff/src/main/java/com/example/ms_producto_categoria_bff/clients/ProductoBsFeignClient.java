@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import com.example.ms_producto_categoria_bff.modelDto.ProductoDTO;
 
-@FeignClient(name = "ms-producto-bs", url = "http://localhost:8181/")
+@FeignClient(name = "ms-producto-bs", url = "http://localhost:8484/")
 public interface ProductoBsFeignClient {
     @GetMapping("api/productos")
     public List<ProductoDTO> selectAllProducto();
@@ -28,5 +28,8 @@ public interface ProductoBsFeignClient {
 
     @DeleteMapping("api/productos/{idProducto}")
     public void delete(@PathVariable("idProducto") Integer idProducto);
+
+    @PutMapping("/api/productos/{idProducto}/stock")
+    ProductoDTO actualizarStock(@PathVariable("idProducto") Integer idProducto, @RequestBody Integer nuevoStock);
 
 }

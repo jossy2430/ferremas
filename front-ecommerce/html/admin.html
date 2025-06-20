@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administrador - Ferremas</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+<header>
+    <nav>
+    <div class="logo">Ferremas - Administrador</div>
+    <a href="paginaPrincipal.html">Volver a la página principal</a>
+    </nav>
+</header>
+
+<main>
+    <section id="admin-employees">
+        <h2>Gestión de Empleados</h2>
+        <button id="addEmployeeButton">Registrar Empleado</button>
+    <div id="employeeList"></div>
+    </section>
+    <section id="admin-products">
+        <h2>Gestión de Productos</h2>
+        <button id="addProductButton">Agregar Producto</button>
+        <button id="updateProductButton">Actualizar Producto</button>
+        <button id="deleteProductButton">Eliminar Producto</button>
+        <div id="productList"></div>
+    </section>
+    <section id="admin-categories">
+        <h2>Gestión de Categorías</h2>
+        <button id="addCategoryButton">Agregar Categoría</button>
+        <button id="updateCategoryButton">Actualizar Categoría</button>
+        <button id="deleteCategoryButton">Eliminar Categoría</button>
+        <div id="categoryList"></div>
+    </section>
+
+    <section id="admin-view">
+        <h2>Productos</h2>
+        <div id="productList"></div>
+        <h2>Categorías</h2>
+        <div id="categoryList"></div>
+    </section>
+</main>
+
+<script src="/js/admin.js"></script>
+</body>
+</html>

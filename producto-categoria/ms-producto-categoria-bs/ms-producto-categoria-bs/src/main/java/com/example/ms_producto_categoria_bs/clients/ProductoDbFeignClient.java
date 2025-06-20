@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import com.example.ms_producto_categoria_bs.modelDto.ProductoDTO;
 
-@FeignClient(name = "ms-producto-db", url = "http://localhost:8080/")
+@FeignClient(name = "ms-producto-db", url = "http://localhost:8383/")
 public interface ProductoDbFeignClient {
 
     @GetMapping("api/productos")
@@ -29,5 +29,9 @@ public interface ProductoDbFeignClient {
 
     @DeleteMapping("api/productos/{idProducto}")
     public void delete(@PathVariable("idProducto") Integer idProducto);
+
+    //stock
+    @PutMapping("/api/productos/{idProducto}/stock")
+    ProductoDTO actualizarStock(@PathVariable("idProducto") Integer idProducto, @RequestBody Integer nuevoStock);
 
 }

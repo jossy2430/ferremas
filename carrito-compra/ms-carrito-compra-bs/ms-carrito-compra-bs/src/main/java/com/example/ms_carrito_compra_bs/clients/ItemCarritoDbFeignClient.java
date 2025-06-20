@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import com.example.ms_carrito_compra_bs.modelDto.ItemCarritoDTO;
 
-@FeignClient(name = "ms-ItemCarrito-compra-db", url = "http://localhost:8080/")
+@FeignClient(name = "ms-ItemCarrito-compra-db", url = "http://localhost:8686/")
 public interface ItemCarritoDbFeignClient {
 
     @GetMapping("/api/itemcarrito")

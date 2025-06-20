@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import com.example.ms_pedido_bff.modelDto.PedidoDTO;
 
-@FeignClient(name = "ms-pedido-bs", url = "http://localhost:8181/")
+@FeignClient(name = "ms-pedido-bs", url = "http://localhost:9090/")
 public interface PedidoBsFeignClient {
 
     @GetMapping("api/pedido")

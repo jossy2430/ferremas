@@ -1,8 +1,6 @@
 package com.example.ms_carrito_compra_db.controller;
 
 import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -12,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.ms_carrito_compra_db.model.CarritoCompra;
@@ -20,8 +19,11 @@ import com.example.ms_carrito_compra_db.service.CarritoCompraService;
 @RestController
 @RequestMapping("api/carrito")
 public class CarritoComprarController {
-    @Autowired
-    private CarritoCompraService carritoCompraService;
+    private final CarritoCompraService carritoCompraService;
+
+    public CarritoComprarController(CarritoCompraService carritoCompraService) {
+        this.carritoCompraService = carritoCompraService;
+    }
 
     @GetMapping
     public ResponseEntity<List<CarritoCompra>> listar(){
@@ -52,22 +54,26 @@ public class CarritoComprarController {
     public ResponseEntity<CarritoCompra> actualizar(@PathVariable Integer idCarrito, @RequestBody CarritoCompra carritoCompra){
         try {
             CarritoCompra cc = carritoCompraService.findById(idCarrito);
-            cc.setIdCarrito(idCarrito);
             cc.setIdCliente(carritoCompra.getIdCliente());
-            cc.setItems(carritoCompra.getItems());
             cc.setFechaCreacion(carritoCompra.getFechaCreacion());
             cc.setActivo(carritoCompra.getActivo());
             cc.setTotal(carritoCompra.getTotal());
 
+            cc.getItems().clear();
+            if (carritoCompra.getItems() != null) {
+                cc.getItems().addAll(carritoCompra.getItems());
+            }
+
             carritoCompraService.save(cc);
-            return ResponseEntity.ok(carritoCompra);
+            return ResponseEntity.ok(cc);
         } catch (Exception e) {
-            return ResponseEntity.notFound().build();
+            e.printStackTrace();
+            return ResponseEntity.status(500).build();
         }
     }
 
     @DeleteMapping("/{idCarrito}")
-    public ResponseEntity<?> eliminar(@PathVariable Integer idCarrito){
+    public ResponseEntity<Void> eliminar(@PathVariable Integer idCarrito){
         try {
             carritoCompraService.delete(idCarrito);
             return ResponseEntity.noContent().build();
@@ -76,4 +82,57 @@ public class CarritoComprarController {
         }
     }
 
+    // Agregar producto al carrito
+    @PostMapping("/{idCarrito}/agregar-productos")
+    public ResponseEntity<CarritoCompra> agregarProducto(
+            @PathVariable Integer idCarrito,
+            @RequestParam Integer idProducto,
+            @RequestParam Integer cantidad,
+            @RequestParam Double precioUnitario,
+            @RequestParam(required = false) Double descuento) {
+        try {
+            CarritoCompra carrito = carritoCompraService.agregarProductos(idCarrito, idProducto, cantidad, precioUnitario, descuento);
+            return ResponseEntity.ok(carrito);
+        } catch (Exception e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    // Eliminar producto del carrito
+    @DeleteMapping("/{idCarrito}/eliminar-producto/{idProducto}")
+    public ResponseEntity<CarritoCompra> eliminarProducto(
+            @PathVariable Integer idCarrito,
+            @PathVariable Integer idProducto) {
+        try {
+            CarritoCompra carrito = carritoCompraService.eliminarProducto(idCarrito, idProducto);
+            return ResponseEntity.ok(carrito);
+        } catch (Exception e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    // Vaciar carrito
+    @PostMapping("/{idCarrito}/vaciar")
+    public ResponseEntity<CarritoCompra> vaciarCarrito(@PathVariable Integer idCarrito) {
+        try {
+            CarritoCompra carrito = carritoCompraService.vaciarCarrito(idCarrito);
+            return ResponseEntity.ok(carrito);
+        } catch (Exception e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @GetMapping("/cliente/{idCliente}")
+    public ResponseEntity<CarritoCompra> buscarPorCliente(@PathVariable Integer idCliente){
+        try {
+            CarritoCompra carritoCompra = carritoCompraService.findCarritoActivoByCliente(idCliente);
+            if (carritoCompra != null) {
+                return ResponseEntity.ok(carritoCompra);
+            } else {
+                return ResponseEntity.notFound().build();
+            }
+        } catch (Exception e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
 }

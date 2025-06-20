@@ -32,4 +32,11 @@ public class ProductoService {
     public void delete(Integer idProducto){
         productoRepository.deleteById(idProducto);
     }
+
+    //actualizar el stock de un producto
+    public Producto actualizarStock(Integer idProducto, Integer nuevoStock){
+        Producto producto = productoRepository.findById(idProducto).orElseThrow(() -> new RuntimeException("Producto no encontrado"));
+        producto.setStock(nuevoStock);
+        return productoRepository.save(producto);
+    }
 }

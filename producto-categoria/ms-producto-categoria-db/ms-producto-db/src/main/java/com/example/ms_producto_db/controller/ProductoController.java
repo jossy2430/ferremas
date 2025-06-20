@@ -77,6 +77,17 @@ public class ProductoController {
         }
     }
 
-    
+    // Actualizar solo el stock de un producto
+    @PutMapping("/{idProducto}/stock")
+    public ResponseEntity<Producto> actualizarStock(
+            @PathVariable Integer idProducto,
+            @RequestBody Integer nuevoStock) {
+        try {
+            Producto producto = productoService.actualizarStock(idProducto, nuevoStock);
+            return ResponseEntity.ok(producto);
+        } catch (Exception e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
 
 }

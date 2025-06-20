@@ -6,7 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.ms_customer_bff.clients.CustomerDbFeignClient;
-import com.example.ms_customer_bff.modelDto.CustomerDTO;
+import com.example.ms_customer_bff.modelDTO.CustomerDTO;
+
+import feign.FeignException;
 
 @Service
 public class CustomerService {
@@ -31,6 +33,19 @@ public class CustomerService {
 
     public void delete(Integer idCliente) {
         customerDbFeignClient.delete(idCliente);
+    }
+
+    public CustomerDTO registro(CustomerDTO customerDTO) {
+        CustomerDTO existente = null;
+        try {
+            existente = customerDbFeignClient.findByCorreo(customerDTO.getCorreo());
+        } catch (FeignException.NotFound e) {
+        // No existe, es correcto
+        }
+        if (existente != null) {
+            throw new RuntimeException("El correo ya está registrado");
+        }
+        return customerDbFeignClient.save(customerDTO);
     }
 
 }

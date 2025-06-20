@@ -12,21 +12,24 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import com.example.ms_carrito_compra_bs.modelDto.CarritoCompraDTO;
 
-@FeignClient(name = "ms-carrito-compra-db", url = "http://localhost:8080/")
+@FeignClient(name = "ms-carrito-compra-db", url = "http://localhost:8686/")
 public interface CarritoDbFeignClient {
 
     @GetMapping("api/carrito")
-    public List<CarritoCompraDTO> selectAllCarritoCompra();
+    List<CarritoCompraDTO> selectAllCarritoCompra();
 
     @GetMapping("api/carrito/{idCarrito}")
-    public CarritoCompraDTO findById(@PathVariable("idCarrito") Integer idCarrito);
+    CarritoCompraDTO findById(@PathVariable("idCarrito") Integer idCarrito);
 
     @PostMapping("api/carrito")
-    public CarritoCompraDTO save(CarritoCompraDTO carritoCompraDTO);
+    CarritoCompraDTO save(@RequestBody CarritoCompraDTO carritoCompraDTO);
 
     @PutMapping("api/carrito/{idCarrito}")
-    public CarritoCompraDTO actualizar(@PathVariable("idCarrito") Integer idCarrito,@RequestBody CarritoCompraDTO carritoCompraDTO);
+    CarritoCompraDTO actualizar(@PathVariable("idCarrito") Integer idCarrito, @RequestBody CarritoCompraDTO carritoCompraDTO);
 
     @DeleteMapping("api/carrito/{idCarrito}")
-    public void delete(@PathVariable("idCarrito") Integer idCarrito);
+    void delete(@PathVariable("idCarrito") Integer idCarrito);
+
+    @GetMapping("api/carrito/cliente/{idCliente}")
+    CarritoCompraDTO findByIdCliente(@PathVariable("idCliente") Integer idCliente);
 }
