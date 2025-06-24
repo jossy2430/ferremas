@@ -24,19 +24,17 @@ public class WebControllerTest {
 
     @Test
     void testCreateTransaction() throws Exception {
-        // Mock request and response
-        WebpayTransactionDTO request = new WebpayTransactionDTO("token123", "https://redirect.url", 100.0, "session123", "order123");
-        WebpayTransactionDTO response = new WebpayTransactionDTO("token123", "https://redirect.url", 100.0, "session123", "order123");
+        // Mock request and response (asegúrate de incluir returnUrl)
+        WebpayTransactionDTO response = new WebpayTransactionDTO("token123", "https://redirect.url", 100.0, "session123", "order123", "https://return.url");
 
         when(webpayService.createTransaction(any(WebpayTransactionDTO.class))).thenReturn(response);
 
-        // Perform POST request
+        // Perform POST request (incluye returnUrl en el JSON)
         mockMvc.perform(post("/api/webpay/transactions")
                 .contentType("application/json")
-                .content("{\"token\":\"token123\",\"urlRedirect\":\"https://redirect.url\",\"amount\":100.0,\"sessionId\":\"session123\",\"buyOrder\":\"order123\"}"))
+                .content("{\"token\":\"token123\",\"urlRedirect\":\"https://redirect.url\",\"amount\":100.0,\"sessionId\":\"session123\",\"buyOrder\":\"order123\",\"returnUrl\":\"https://return.url\"}"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.token").value("token123"))
                 .andExpect(jsonPath("$.urlRedirect").value("https://redirect.url"));
     }
-
 }
